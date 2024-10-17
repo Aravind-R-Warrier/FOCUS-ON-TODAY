@@ -8,10 +8,10 @@ let lastQuote=document.querySelector(".quote");
 let lastQuotes=["“Move one step ahead, today!”","“Keep Going, You’re making great progress!”"]
 let allQuotes=["Raise the bar by completing your goals!","Completed One Don't be Lazy","Yeahh Lets Do It","wow You Are Amazing"]
 let allGoals = JSON.parse(localStorage.getItem('allGoals')) || {
-    first:{name:"",completed:false},
-    second:{name:"",completed:false},
-    third:{name:"",completed:false},
-};
+    first:{name:'',completed:''},
+    second:{name:'',completed:''},
+    third:{name:'',completed:''}
+}
 
 
 // Populate input fields and checkboxes on page load
@@ -32,11 +32,11 @@ inputField.forEach((input) => {
             input.value=allGoals[input.id].name
             return
         }
-
-
-        allGoals[input.id] = { name: input.value, completed: false }; // Update the goal
-        localStorage.setItem('allGoals', JSON.stringify(allGoals));
     });
+    
+    // first update complted to flase
+    allGoals[input.id] = { name: input.value, completed: false }; // Update the goal
+    localStorage.setItem('allGoals', JSON.stringify(allGoals));
 });
 
 checkBoxList.forEach((checkbox) => {
@@ -48,6 +48,7 @@ checkBoxList.forEach((checkbox) => {
             const inputId = checkbox.nextElementSibling.id;
 
             if (allGoals[inputId]) {
+                // 
                 allGoals[inputId].completed = !allGoals[inputId].completed; // Toggle completed state
                 completedGoalsCount=Object.values(allGoals).filter((goal)=>goal.completed).length
                 progressValue.style.width = `${completedGoalsCount/3 *100}%`
